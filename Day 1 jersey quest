@@ -1,0 +1,10 @@
+int minDifference(vector<int> &a) {
+    // Write your code here.
+    int ans=0;
+    sort(a.begin(),a.end());
+    ans= a[1]-a[0];
+    for(int i=1;i<a.size()-1;i++){
+        if(ans > a[i+1] - a[i]) ans =a[i+1] - a[i];
+    }
+    return ans;
+}
