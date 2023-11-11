@@ -1,0 +1,21 @@
+long long countPairs(int n, vector<int> a) {
+    // Write your code here.
+    int maxi = *max_element(a.begin(), a.end()); 
+    int mini = *min_element(a.begin(), a.end()); 
+    int cmini = 0; 
+    int cmaxi = 0; 
+ 
+    sort(a.begin(), a.end()); 
+    if(a[0] == a[n-1])return n*(n-1); 
+ 
+    for(int i = 0; i<n; i++){ 
+        if(a[i] == mini){ 
+            cmini++; 
+        } 
+        if(a[i]== maxi){ 
+            cmaxi++; 
+        } 
+    } 
+ 
+    return cmini*cmaxi*2; 
+}
