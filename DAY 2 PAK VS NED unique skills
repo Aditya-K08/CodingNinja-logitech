@@ -1,0 +1,42 @@
+
+
+int dp[5000][(1 << 10) + 5];
+
+int getmask(int val) {
+    int mask = 0;
+
+    if (val == 0)
+        return 1;
+
+    while (val) {
+        int d = val % 10;
+        mask |= (1 << d);
+        val /= 10;
+    }
+    return mask;
+}
+
+int countWays(int pos, int mask, int a[], int n) {
+    if (pos == n)
+        return (mask > 0 ? 1 : 0);
+
+    if (dp[pos][mask] != -1)
+        return dp[pos][mask];
+
+    int count = 0;
+    count = count + countWays(pos + 1, mask, a, n);
+
+    if ((getmask(a[pos]) & mask) == 0) {
+        int new_mask = (mask | (getmask(a[pos])));
+        count = count + countWays(pos + 1, new_mask, a, n);
+    }
+
+    return dp[pos][mask] = count;
+}
+
+int goodSubsequence(std::vector<int> &a) {
+    int n = a.size();
+    memset(dp, -1, sizeof(dp));
+
+    return countWays(0, 0, a.data(), n);
+}
